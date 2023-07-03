@@ -7,12 +7,15 @@ import { getAnalytics } from 'firebase/analytics';
 import configs from '../configs/config';
 import setting from '../configs/setting';
 import axios from 'axios';
+import { useTranslation } from "react-i18next";
 
 function Home() {
     const options = [
         { label: 'Option 1', id: 1 },
         { label: 'Option 2', id: 2 },
     ];
+
+    const { t, translation } = useTranslation();
 
     const themeButton = createTheme({
         shape: {
@@ -96,6 +99,7 @@ function Home() {
     return (
         <div>
             <h1>Home</h1>
+            <h2>{t('home')} + {t('content.key')}</h2>
             <hr />
             <h2>{detail.uid}: {detail.name}</h2>
             <h4>{setting.key1} + {setting.key3.key31}</h4>

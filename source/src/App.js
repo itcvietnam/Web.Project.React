@@ -8,6 +8,7 @@ import Layout from './layouts/Layout';
 import RequireLogin from './components/RequireLogin';
 import { ThemeProvider, createTheme } from '@mui/material';
 import configTheme from './configs/config.theme';
+import translation from "./components/translation";
 
 function App() {
   const theme = createTheme(configTheme);
