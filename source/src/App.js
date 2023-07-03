@@ -6,28 +6,34 @@ import User from './pages/User';
 import Content from './pages/Content';
 import Layout from './layouts/Layout';
 import RequireLogin from './components/RequireLogin';
+import { ThemeProvider, createTheme } from '@mui/material';
+import configTheme from './configs/config.theme';
 
 function App() {
+  const theme = createTheme(configTheme);
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/user" element={
-              <RequireLogin authStatus={false}>
-                <User />
-              </RequireLogin>
-            } />
-            <Route path="/content" element={
-              <RequireLogin authStatus={true}>
-                <Content />
-              </RequireLogin>
-            } />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/user" element={
+                <RequireLogin authStatus={false}>
+                  <User />
+                </RequireLogin>
+              } />
+              <Route path="/content" element={
+                <RequireLogin authStatus={true}>
+                  <Content />
+                </RequireLogin>
+              } />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }

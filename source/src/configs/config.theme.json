@@ -1,0 +1,11 @@
+{
+  "palette": {
+    "primary": {
+      "main": "#0062af"
+    }
+  },
+    "shape": {
+      "borderRadius": 16,
+      "shadows": "none"
+    }
+}

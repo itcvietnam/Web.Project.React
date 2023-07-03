@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, Autocomplete, TextField } from '@mui/material';
+import { Button, Grid, Autocomplete, TextField, ThemeProvider, createTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
@@ -13,6 +13,12 @@ function Home() {
         { label: 'Option 1', id: 1 },
         { label: 'Option 2', id: 2 },
     ];
+
+    const themeButton = createTheme({
+        shape: {
+            borderRadius: 30
+        }
+    });
 
     const [detail, setDetail] = useState({
         uid: 123,
@@ -98,7 +104,9 @@ function Home() {
             <hr />
             <Grid container spacing={0}>
                 <Grid xs={3} item={true}>
-                    <Button variant="contained">Button</Button>
+                    <ThemeProvider theme={themeButton}>
+                        <Button variant="contained">Button</Button>
+                    </ThemeProvider>
                 </Grid>
                 <Grid xs={3} item={true}>
                     <Autocomplete
