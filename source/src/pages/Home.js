@@ -8,6 +8,7 @@ import configs from '../configs/config';
 import setting from '../configs/setting';
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
+import ButtonSignin from '../components/ButtonSignin';
 
 function Home() {
     const options = [
@@ -95,11 +96,17 @@ function Home() {
             //window.grecaptcha.reset(widgetId);
         });
     };
+
+    const handleClick = () => {
+        alert(123);
+    };
     
     return (
         <div>
             <h1>Home</h1>
             <h2>{t('home')} + {t('content.key')}</h2>
+            <hr />
+            <ButtonSignin x="XXX" onClick={handleClick}>Button Sigin</ButtonSignin>
             <hr />
             <h2>{detail.uid}: {detail.name}</h2>
             <h4>{setting.key1} + {setting.key3.key31}</h4>
@@ -108,6 +115,7 @@ function Home() {
             <hr />
             <Grid container spacing={0}>
                 <Grid xs={3} item={true}>
+                    <Button variant="contained">Button Base</Button>
                     <ThemeProvider theme={themeButton}>
                         <Button variant="contained">Button</Button>
                     </ThemeProvider>

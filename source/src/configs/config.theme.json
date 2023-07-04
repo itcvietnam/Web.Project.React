@@ -1,11 +1,21 @@
 {
   "palette": {
     "primary": {
-      "main": "#0062af"
+      "main": "#f00",
+      "contrastText": "#ffffff"
     }
   },
-    "shape": {
-      "borderRadius": 16,
-      "shadows": "none"
+  "shape": {
+    "borderRadius": 18
+  },
+  "components": {
+    "MuiButton": {
+      "defaultProps": {
+        "fullWidth": true,
+        "size": "large",
+        "disableRipple": true,
+        "disableElevation": true
+      }
     }
+  }
 }
