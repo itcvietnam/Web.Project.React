@@ -1,7 +1,7 @@
 {
   "palette": {
     "primary": {
-      "main": "#f00",
+      "main": "#0062af",
       "contrastText": "#ffffff"
     }
   },
@@ -15,6 +15,43 @@
         "size": "large",
         "disableRipple": true,
         "disableElevation": true
+      }
+    },
+    "MuiSelect": {
+      "defaultProps": {
+        "inputProps": {
+          "IconComponent": false
+        }
+      },
+      "styleOverrides": {
+        "root": {}
+      }
+    },
+    "MuiTextField": {
+      "defaultProps": {
+        "inputProps": {},
+        "InputProps": {
+          "disableUnderline": true
+        },
+        "variant": "filled"
+      },
+      "styleOverrides": {
+        "root": {}
+      }
+    },
+    "MuiInputBase": {
+      "styleOverrides": {
+        "root": {
+          "borderRadius": "18px"
+        }
+      }
+    },
+    "MuiFilledInput": {
+      "styleOverrides": {
+        "input": {
+          "padding": "10px",
+          "fontWeight": "bold"
+        }
       }
     }
   }
