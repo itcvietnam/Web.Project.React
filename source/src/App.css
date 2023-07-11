@@ -82,7 +82,7 @@ main {
 
 .explore .body .friend-item {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   position: absolute;
   padding: 40px;
   background: #ccc;

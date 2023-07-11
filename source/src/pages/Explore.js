@@ -1,10 +1,16 @@
-import { Button, Grid, Stack, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { Button, Chip, Divider, Grid, List, ListItem, ListItemText, Stack, BottomNavigation, BottomNavigationAction } from '@mui/material';
 //import { RestoreIcon, FavoriteIcon, LocationOnIcon } from '@mui/icons-material';
 import TinderCard from "react-tinder-card";//https://www.npmjs.com/package/react-tinder-card (Bắt buộc cài đặt đúng phiên bản)
+
 import { Fancybox } from "@fancyapps/ui";//https://fancyapps.com/fancybox
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 import config from '../configs/config';
 import { createRef, useMemo, useRef, useState } from 'react';
+
+//Carousel: https://www.npmjs.com/package/react-responsive-carousel
 
 function Explore() {
     //Fancybox
@@ -28,35 +34,44 @@ function Explore() {
     console.log(navigator.userAgent);
 
     //Navigation bottom
+    //activeNavigation
     const [active, setActive] = useState(0);
 
     //Tinder card
+    //tinderItemCount
     const itemCount = 3;
 
+    //currentTinderIndex
+    //lastTinderDirection
     const [currentIndex, setCurrentIndex] = useState(itemCount - 1);
     const [lastDirection, setLastDirection] = useState();
 
+    //currentTinderIndexRef
     const currentIndexRef = useRef(currentIndex);
 
+    //childTinderRefs
     const childRefs = useMemo(
         () => Array(itemCount).fill(0).map((index) => createRef()),
         []
     );
     
+    //updateCurrentTinderIndex
     const updateCurrentIndex = (value) => {
         setCurrentIndex(value);
         
         currentIndexRef.current = value;
     };
 
+    //handleSwipeTinder
     const handleSwipeFriend = (direction, index) => {
         setLastDirection(direction);
         updateCurrentIndex(index - 1);
     };
 
-    const handleSwitchFriend = async (dir) => {
+    //handleSwitchTinder
+    const handleSwitchFriend = async (direction) => {
         if (currentIndex >= 0 && currentIndex < itemCount) {
-            await childRefs[currentIndex].current.swipe(dir);
+            await childRefs[currentIndex].current.swipe(direction);
         }
     };
     
@@ -74,9 +89,62 @@ function Explore() {
                                 key={1}
                                 ref={childRefs[0]}
                                 onSwipe={(dir) => handleSwipeFriend(dir, 0)}>
-                        <div className="photo">Photo 0</div>
+                        <div className="intro">
+                            <div className="name verified">ABC</div>
+                            <div className="photo">
+                                <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
+                                    <div>
+                                        <img src={img1Thumb} />
+                                    </div>
+                                    <div>
+                                        <img src={img2Thumb} />
+                                    </div>
+                                </Carousel>
+                                <Button href={img1} data-fancybox="0">FULLSCREEN</Button>
+                            </div>
+                        </div>
                         <div className="content">
-                            <h3>Tinder Card 0</h3>
+                            <h4>Tôi ở đây vì</h4>
+                            <div className="reason">Muốn đi chơi</div>
+                            <h4>Về tôi</h4>
+                            <div className="about">...</div>
+                            <h4>Thông tin</h4>
+                            <div className="info">
+                                <Chip className="chip bmi" label="168cm - 56kg" variant="outlined" />
+                                <Chip className="chip bwh" label="90-80-60" variant="outlined" />
+                            </div>
+                            <div className="photo-list">
+                                <div className="photo">
+                                    <a href={img1} data-fancybox="0">
+                                        <img src={img1Thumb} />
+                                    </a>
+                                </div>
+                                <div className="photo thumbnail">...1</div>
+                                <div className="photo thumbnail">...2</div>
+                                <div className="photo thumbnail">
+                                    ...3
+                                    <div className="more">+5</div>
+                                </div>
+                            </div>
+                            <h4>Sở thích</h4>
+                            <div className="passion">
+                                <Chip className="chip color-1" label="Art" />
+                            </div>
+                            <h4>Vị trí</h4>
+                            <div className="address">...</div>
+                            <h4>Xác thực</h4>
+                            <div className="verify">
+                                <span className="verified">....</span>
+                            </div>
+                            <List className="task" component="nav">
+                                <ListItem className="report">
+                                    <ListItemText primary="Report ..." />
+                                </ListItem>
+                                <Divider />
+                                <ListItem className="block">
+                                    <ListItemText primary="Block ..." />
+                                </ListItem>
+                            </List>
                         </div>
                     </TinderCard>
                     <TinderCard className="friend-item"
@@ -84,7 +152,7 @@ function Explore() {
                                 ref={childRefs[1]}
                                 onSwipe={(dir) => handleSwipeFriend(dir, 1)}>
                         <div className="photo">
-                            <a href={img1} data-fancybox>
+                            <a href={img1} data-fancybox="1">
                                 <img src={img1Thumb} />
                             </a>
                         </div>
@@ -96,13 +164,18 @@ function Explore() {
                                 key={3}
                                 ref={childRefs[2]}
                                 onSwipe={(dir) => handleSwipeFriend(dir, 2)}>
-                        <div className="photo">
-                            <a href={img2} data-fancybox>
-                                <img src={img2Thumb} />
-                            </a>
-                        </div>
-                        <div className="content">
-                            <h3>Tinder Card 2</h3>
+                        <div className="profile">
+                            <div className="photo">
+                                <a href={img2} data-fancybox="2">
+                                    <img src={img2Thumb} />
+                                </a>
+                            </div>
+                            <div className="content">
+                                <h3>Tinder Card 2</h3>
+                                <a href={img1} data-fancybox="2">
+                                    <img src={img1Thumb} />
+                                </a>
+                            </div>
                         </div>
                     </TinderCard>
                 </div>
