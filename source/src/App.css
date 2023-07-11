@@ -78,61 +78,47 @@ main {
 .explore .body {
   height: calc(100% - 400px);
   position: relative;
-  border-radius: 14px;
 }
 
 .explore .body .friend-item {
   width: 100%;
+  height: 100%;
   position: absolute;
   padding: 40px;
   background: #ccc;
-  border-radius: 14px;
   box-sizing: border-box;
-}
-
-/*
-* https://codepen.io/sergejmueller/pen/nqzjaa
-*/
-.explore .body .corner {
-  overflow: hidden;
-  background: #000;
-  width: 20px;
-  height: 20px;
-}
-
-.explore .body .corner .corner-inner {
-  width: 40px;
-  height: 40px;
-}
-
-.explore .body .corner .corner-inner::before {
-  display: block;
-  width: 40px;
-  height: 40px;
-  content: "";
-  border-radius: 18px;
-  background-color: #fff;
-}
-
-.explore .body .corner.top {
-  margin-top: -20px;
-}
-
-.explore .body .corner.bottom {
-  margin-top: -20px;
-  margin-bottom: -22px;
-}
-
-.explore .body .corner.left {
-  float: left;
-  margin-left: -20px;
-}
-
-.explore .body .corner.right {
-  float: right;
-  margin-right: -20px;
 }
 
 .explore .navigation {
   position: relative;
+}
+
+.explore .corner {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+}
+
+.explore .corner.top-left {
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle at bottom right, transparent 18px, #fff 18px);
+}
+
+.explore .corner.top-right {
+  top: 0;
+  right: 0;
+  background: radial-gradient(circle at bottom left, transparent 18px, #fff 18px);
+}
+
+.explore .corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at top right, transparent 18px, #fff 18px);
+}
+
+.explore .corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  background: radial-gradient(circle at top left, transparent 18px, #fff 18px);
 }
