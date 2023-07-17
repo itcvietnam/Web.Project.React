@@ -76,17 +76,41 @@ main {
 }
 
 .explore .body {
-  height: calc(100% - 400px);
+  height: 450px;
+  position: relative;
+}
+
+.explore .body .skeleton {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+}
+
+.explore .body .friend {
+  height: 400px;
+  padding-top: 30px;
   position: relative;
 }
 
 .explore .body .friend-item {
   width: 100%;
-  min-height: 100%;
-  position: absolute;
+  height: 400px;
   padding: 40px;
+  position: absolute;
+  top: 0;
+  overflow-x: hidden;
+  scrollbar-width: none;
   background: #ccc;
+  border-radius: 10px;
   box-sizing: border-box;
+}
+
+.explore .body .friend-item::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .explore .navigation {

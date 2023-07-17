@@ -1,4 +1,4 @@
-import { Button, Skeleton, Chip, Divider, Grid, List, ListItem, ListItemText, Stack, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { Button, Chip, Divider, Grid, List, ListItem, ListItemText, Stack, BottomNavigation, BottomNavigationAction } from '@mui/material';
 //import { RestoreIcon, FavoriteIcon, LocationOnIcon } from '@mui/icons-material';
 import TinderCard from "react-tinder-card";//https://www.npmjs.com/package/react-tinder-card (Bắt buộc cài đặt đúng phiên bản)
 
@@ -9,9 +9,27 @@ import { Carousel } from 'react-responsive-carousel';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import config from '../configs/config';
-import { createRef, useEffect, useMemo, useState } from 'react';
+import { createRef, useEffect, useMemo, useRef, useState } from 'react';
 
 //Carousel: https://www.npmjs.com/package/react-responsive-carousel
+
+const tinderList = [
+    {
+        'name': 'Name One'
+    },
+    {
+        'name': 'Name Two'
+    },
+    {
+        'name': 'Name Three'
+    },
+    {
+        'name': 'Name Four'
+    },
+    {
+        'name': 'Name Five'
+    }
+];
 
 //https://stackblitz.com/edit/reactjs-tinder-card?file=src%2FPerson.js
 
@@ -42,71 +60,66 @@ function Explore() {
     const [active, setActive] = useState(0);
 
     //Tinder card
+    //currentTinderIndex
+    //lastTinderDirection
+    const [currentIndex, setCurrentIndex] = useState(0);
     const [lastDirection, setLastDirection] = useState();
-    const [startTinderItem, setStartTinderItem] = useState(0);
+
+    //Tinder items states
+    const [tinderItemCount, setTinterItemCount] = useState(1);
     const [tinderItems, setTinderItems] = useState([]);
+
     const [lazyTinderItems, setLazyTinderItems] = useState([]);
+
+    //currentTinderIndexRef
+    const currentIndexRef = useRef(currentIndex);
+
+    //childTinderRefs
+    const childRefs = useMemo(
+        () => Array(tinderItemCount).fill(0).map((index) => createRef()),
+        []
+    );
     
     //Use effect
     useEffect(() => {
-        const tinderList = [
-            {
-                'uid': 'a',
-                'name': 'Name One'
-            },
-            {
-                'uid': 'b',
-                'name': 'Name Two'
-            },
-            {
-                'uid': 'c',
-                'name': 'Name Three'
-            },
-            {
-                'uid': 'd',
-                'name': 'Name Four'
-            },
-            {
-                'uid': 'e',
-                'name': 'Name Five'
-            }
-        ];
+        const tmpLazyTinderItems = tinderList.slice(0, 1);
+        const tmpLazyTinderItemCount = tmpLazyTinderItems.length;
 
-        const tmpLazyTinderItems = tinderList.slice(
-            startTinderItem,
-            startTinderItem + 1
-        );
-        
-        setTinderItems(tinderList);
+        //setTinterItemCount(tmpLazyTinderItemCount);
+        //setCurrentIndex(tmpLazyTinderItemCount - 1);
         setLazyTinderItems(tmpLazyTinderItems);
-    }, []);
 
-    //Use memo
-    const childRefs = useMemo(
-        () => Array(1).fill(0).map((index) => createRef()),
-        []
-    );
+        setTinderItems(tinderList);
+    }, []);
+    
+    //updateCurrentTinderIndex
+    const updateCurrentIndex = (value) => {
+        setCurrentIndex(value);
+        
+        currentIndexRef.current = value;
+    };
     
     //handleSwipeTinder
     const handleSwipeFriend = (direction, index) => {
         setLastDirection(direction);
+        //updateCurrentIndex(index - 1);
     };
 
     //handleSwitchTinder
     const handleSwitchFriend = async (direction) => {
-        if (startTinderItem < tinderItems.length) {
-            await childRefs[0].current.swipe(direction);
+        if (currentIndex >= 0 && currentIndex < tinderItemCount) {
+            await childRefs[currentIndex].current.swipe(direction);
         }
     };
 
     const handleOutOfFrame = () => {
-        setStartTinderItem(startTinderItem + 1);
-        setLazyTinderItems(
-            tinderItems.slice(
-                startTinderItem + 1,
-                startTinderItem + 2
-            )
-        );
+        //Lazy tinder
+        const tmpLazyTinderItems = tinderItems.slice(1, 2);
+        const tmpLazyTinderItemCount = tmpLazyTinderItems.length;
+        
+        //setTinterItemCount(tmpLazyTinderItemCount);
+        //setCurrentIndex(tmpLazyTinderItemCount - 1);
+        setLazyTinderItems(tmpLazyTinderItems);
     };
     
     //Return
@@ -122,7 +135,7 @@ function Explore() {
                     {lazyTinderItems.map((tinder, index) => {
                         return (
                             <TinderCard className="friend-item"
-                                        key={tinder.uid}
+                                        key={index}
                                         ref={childRefs[index]}
                                         onCardLeftScreen={() => handleOutOfFrame()}
                                         onSwipe={(dir) => handleSwipeFriend(dir, index)}>
@@ -209,7 +222,6 @@ function Explore() {
                             </TinderCard>
                         );
                     })}
-                    <Skeleton className="skeleton" variant="rectangular" />
                 </div>
             </div>
             <div className="action"

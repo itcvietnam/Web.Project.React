@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import User from './pages/User';
 import Explore from './pages/Explore';
+import ExploreLazy from './pages/ExploreLazy';
 import Content from './pages/Content';
 import Layout from './layouts/Layout';
 import RequireLogin from './components/RequireLogin';
@@ -23,6 +24,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/explore" element={<Explore />} />
+              <Route path="/explore-lazy" element={<ExploreLazy />} />
               <Route path="/user" element={
                 <RequireLogin authStatus={false}>
                   <User />
