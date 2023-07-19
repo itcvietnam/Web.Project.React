@@ -146,3 +146,7 @@ main {
   right: 0;
   background: radial-gradient(circle at top left, transparent 18px, #fff 18px);
 }
+
+.carousel.carousel-slider .control-arrow {
+  width: 50% !important;
+}

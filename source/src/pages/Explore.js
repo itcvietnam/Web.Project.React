@@ -1,6 +1,7 @@
 import { Button, Skeleton, Chip, Divider, Grid, List, ListItem, ListItemText, Stack, BottomNavigation, BottomNavigationAction } from '@mui/material';
 //import { RestoreIcon, FavoriteIcon, LocationOnIcon } from '@mui/icons-material';
-import TinderCard from "react-tinder-card";//https://www.npmjs.com/package/react-tinder-card (Bắt buộc cài đặt đúng phiên bản)
+//import TinderCard from "../components/TinderCard";//https://www.npmjs.com/package/react-tinder-card (Bắt buộc cài đặt đúng phiên bản)
+import TinderCard from 'react-tinder-card';
 
 import { Fancybox } from "@fancyapps/ui";//https://fancyapps.com/fancybox
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
@@ -108,6 +109,16 @@ function Explore() {
             )
         );
     };
+
+    const handleClickButton = () => {
+        console.log(document.getElementsByClassName('friend-item')[0]);
+    };
+    
+    /*
+    window.addEventListener(('touchstart'), (e) => {
+        e.preventDefault();
+    });
+    */
     
     //Return
     return (
@@ -121,13 +132,16 @@ function Explore() {
                 <div className="friend">
                     {lazyTinderItems.map((tinder, index) => {
                         return (
-                            <TinderCard className="friend-item"
+                            <TinderCard className="friend-item pressable"
                                         key={tinder.uid}
                                         ref={childRefs[index]}
                                         onCardLeftScreen={() => handleOutOfFrame()}
                                         onSwipe={(dir) => handleSwipeFriend(dir, index)}>
                                 <div className="intro">
                                     <h3 className="name verified">{tinder.name}</h3>
+                                    <p>
+                                        <Button className="pressable" onClick={handleClickButton}>Button Click</Button>
+                                    </p>
                                     <div className="photo">
                                         <Carousel showThumbs={false} showStatus={false} infiniteLoop={true}>
                                             <div>
@@ -137,7 +151,7 @@ function Explore() {
                                                 <img src={img2Thumb} />
                                             </div>
                                         </Carousel>
-                                        <Button href={img1} data-fancybox="0">FULLSCREEN</Button>
+                                        <Button href={img1} className="pressable" data-fancybox="0">FULLSCREEN</Button>
                                     </div>
                                 </div>
                                 <div className="content">
@@ -209,7 +223,6 @@ function Explore() {
                             </TinderCard>
                         );
                     })}
-                    <Skeleton className="skeleton" variant="rectangular" />
                 </div>
             </div>
             <div className="action"
